@@ -1,5 +1,12 @@
 {
-  "name": "tools-generator",
+  "name": "swagger-auto-generate",
+  {
+    "author": "Kirill Mastyugin <kirs_mast@mail.ru> (https://github.com/kmastyugin)"
+  },
+  "bugs": {
+    "url": "https://github.com/kmastyugin/swagger-auto-generate/issues",
+    "email": "kirs_mast@mail.ru"
+  },
   "type": "commonjs",
   "private": true,
   "devDependencies": {
