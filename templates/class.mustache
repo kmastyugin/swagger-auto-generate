@@ -1,0 +1,54 @@
+/* Auto-generated API class */
+import type { HttpClient, HttpRequestConfig } from 'api/api.types';
+{{#imports}}
+  import type { {{.}} } from './{{baseName}}.types';
+{{/imports}}
+
+export class {{className}} {
+private client: HttpClient;
+
+constructor(client: HttpClient) {
+this.client = client;
+}
+
+{{#methods}}
+  /**
+  * {{summary}}
+  */
+  async {{operationName}}(
+  {{#hasParams}}params: {
+  {{#pathParams}}  {{name}}{{^required}}?{{/required}}: {{type}};
+  {{/pathParams}}
+  {{#queryParams}}  {{name}}{{^required}}?{{/required}}: {{type}};
+  {{/queryParams}}
+  {{#headerParams}}  {{name}}{{^required}}?{{/required}}: {{type}};
+  {{/headerParams}}
+  {{#requestBody}}  body: {{type}};{{/requestBody}}
+  },{{/hasParams}}{{^hasParams}}params?: undefined,{{/hasParams}}
+  config?: HttpRequestConfig,
+  ): Promise<{{response}}> {
+  const url = `{{{path}}}`{{#pathParams}}.replace('{${{name}}}', encodeURIComponent(params.{{name}})){{/pathParams}};
+
+  return this.client.{{method}}<{{response}}{{#requestBody}}, {{requestBody.type}}{{/requestBody}}>(
+  url{{#requestBody}}, params.body{{/requestBody}},
+  {
+  ...config,
+  {{#queryParams.length}}
+    params: {
+    ...(config?.params || {}),
+    {{#queryParams}}{{name}}: params.{{name}},
+    {{/queryParams}}
+    },
+  {{/queryParams.length}}
+  {{#headerParams.length}}
+    headers: {
+    ...(config?.headers || {}),
+    {{#headerParams}}{{name}}: params.{{name}},
+    {{/headerParams}}
+    },
+  {{/headerParams.length}}
+  },
+  );
+  }
+{{/methods}}
+}
